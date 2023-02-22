@@ -1,5 +1,42 @@
 body {
-    background-color: lightblue;
+    background-color: rgb(201, 235, 235);
     font-family: verdana;
     font-size: larger;
   }
+
+.heading1 {
+  text-align: center;
+  margin: 5%;
+}
+.emotionInput {
+  margin: auto;
+}
+form{
+  display: grid; 
+
+}
+.emotionInput button {
+   margin: auto;
+}
+.btn1{
+  width: max-content;
+  margin: auto;
+  margin-bottom: 2%;
+  background-color: rgb(32, 147, 109);
+  border: none;
+  border-radius: 5px;
+}
+.recommendation {
+  background-color: rgb(208, 236, 236);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: grid;
+  margin: auto;
+}
+.btn2 {
+  font-size: small;
+}
+.songTable{
+  font-size: medium;
+  text-align: center;
+  margin-top: 2%;
+}
