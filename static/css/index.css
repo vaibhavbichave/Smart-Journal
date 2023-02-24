@@ -1,43 +1,82 @@
 body {
-    background-color: rgb(201, 235, 235);
-    font-family: verdana;
-    font-size: larger;
-  }
+  font-family: verdana;
+   font-size: larger;
+ }
 
 .heading1 {
-  text-align: center;
-  margin: 5%;
+ text-align: center;
+ margin: 5%;
 }
 .emotionInput {
-  margin: auto;
-  width: 25%;
+ margin: auto;
+ width: 25%;
 }
 form{
-  display: grid; 
+ display: grid; 
 
 }
 .emotionInput button {
-   margin: auto;
+  margin: auto;
 }
 .btn1{
-  width: max-content;
-  margin: auto;
-  margin-bottom: 2%;
-  background-color: rgb(32, 147, 109);
-  border: none;
-  border-radius: 5px;
+ width: max-content;
+ margin: auto;
+ margin-bottom: 2%;
+ background-color: rgb(32, 147, 109);
+ border: none;
+ border-radius: 5px;
 }
 .recommendation {
-  background-color: rgb(208, 236, 236);
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  display: grid;
-  margin: auto;
+
+ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+ display: grid;
+ margin: auto;
 }
 .btn2 {
-  font-size: small;
+ font-size: small;
 }
 .songTable{
-  font-size: medium;
-  text-align: center;
-  margin-top: 2%;
+ font-size: medium;
+ text-align: center;
+ margin-top: 2%;
+}
+
+
+
+.box select {
+ background-color: #5bc0de  ;
+ color: white;
+ padding: 12px;
+ width: 150px;
+ border: none;
+ font-size: 20px;
+ box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+ -webkit-appearance: button;
+ appearance: button;
+ outline: none;
+}
+
+.box::before {
+ content: "\f13a";
+ font-family: FontAwesome;
+ position: absolute;
+ top: 0;
+ right: 0;
+ width: 20%;
+ height: 100%;
+ text-align: center;
+ font-size: 28px;
+ line-height: 45px;
+ color: rgba(255, 255, 255, 0.5);
+ background-color: rgba(255, 255, 255, 0.1);
+ pointer-events: none;
+}
+
+.box:hover::before {
+ color: rgba(255, 255, 255, 0.6);
+ background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+ padding: 30px;
 }
