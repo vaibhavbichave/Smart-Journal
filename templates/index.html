@@ -64,31 +64,16 @@
         </thead>
         <tbody>
           {% for index,song in data.items %}
-          <tr>
+          <tr onclick="{AjaxCall('{{song.name}}')}">
             <td>{{song.name}}</td>
             <td>{{song.artist}}</td>
             <td>{{song.mood}}</td>
-            <td>
-              <button value={{ song.name }} class="button btn btn-info btn2" onclick="{result(event)}" role="button">
-                Find similar
-              </button>
-            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
-
-<script>
-function result(event){
-  console.log(event)
-}
-</script>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -99,6 +84,20 @@ function result(event){
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      function AjaxCall(songName){
+        $.ajax({
+          method: 'GET',
+          url: "{% url 'test' %}",
+          success: function(data){
+              window.location = "{% url 'result' %}";
+          },
+          data: songName,
+      });
+      }
+      </script>
+
   </body>
   <!-- !SECTION HEAD -->
 </html>
