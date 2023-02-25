@@ -51,8 +51,7 @@ def recommendation(songName, model_Name):
     sim_score = sorted(score, key=lambda x: x[1], reverse=True)
     sim_score = sim_score[1:11]
     Index = [i[0] for i in sim_score]
-    return Index 
-    #data["name"].iloc[Index]
+    return Index
 
 
 feature_cols = data.drop([
