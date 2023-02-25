@@ -75,17 +75,17 @@ def KNNRecommendation(SongName):
             i, data['name'].iloc[indices.flatten()[i]], distances.flatten()[i]))
 
 
-print("\nrecommendation using linear - ")
-print(recommendation('Alison', 'linear'))
+# print("\nrecommendation using linear - ")
+# print(recommendation('Alison', 'linear'))
 
 
-print("\nrecommendation using euclidian - ")
-print(recommendation('Alison', 'euclidian'))
+# print("\nrecommendation using euclidian - ")
+# print(recommendation('Alison', 'euclidian'))
 
 
-print("\nrecommendation using cosine - ")
-print(recommendation('Alison', 'cosine'))
+# print("\nrecommendation using cosine - ")
+# print(recommendation('Alison', 'cosine'))
 
 
-print("\nrecommendation using KNN - ")
-KNNRecommendation('Alison')
+# print("\nrecommendation using KNN - ")
+# KNNRecommendation('Alison')
