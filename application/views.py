@@ -21,6 +21,7 @@ def index(request):
     for i in range(len(df)):
         data = {}
         data['name'] = df['name'][i]
+        data['id'] = "https://open.spotify.com/embed/track/"+df['id'][i]+ "?utm_source=generator" 
         data['artist'] = df['artist'][i]
         data['mood'] = df['mood'][i]
         dataframe[i] = data
@@ -36,6 +37,7 @@ def result(request):
     for i in index:
         data = {}
         data['name'] = df['name'][i]
+        data['id'] = "https://open.spotify.com/embed/track/"+df['id'][i]+ "?utm_source=generator" 
         data['artist'] = df['artist'][i]
         data['mood'] = df['mood'][i]
         dataframe[i] = data
