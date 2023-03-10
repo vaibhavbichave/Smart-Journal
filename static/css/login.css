@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+}
+h1 {
+    font-size: x-large;
+}
+.login-card {
+    width: 70%;
+    margin: auto;
+}
+.form-input {
+    margin: auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+.submit-btn {
+    margin-top: 2vh;
+}
+.p-text {
+    font-size: small;
+    margin-top: 2%;
+}

@@ -10,27 +10,95 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from application.models import Profile
 import os
+import math
 import pandas as pd
 import pickle
 from django.views.decorators.csrf import csrf_exempt
 from application.prediction import predict_deep, loaded_model
 
 
-index = []
-pickle.dump(index, open('index.pkl', 'wb'))
+# index = []
+# pickle.dump(index, open('index.pkl', 'wb'))
 df = pd.read_csv('static/dataset/data_moods.csv')
 
+df_happy = df[df.mood=='Happy']
+df_calm = df[df.mood=='Calm']
+df_sad = df[df.mood=='Sad']
+df_energetic = df[df.mood=='Energetic']
 
 @login_required
 def songs(request):
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.filter(user=user).first()
+    emotion_data = {}
+    # {'sadness': 0, 'joy': 1, 'surprise': 2,'love': 3, 'anger': 4, 'fear': 5}
+    emotion_data['sadness'] = profile.sadness 
+    emotion_data['joy'] = profile.joy 
+    emotion_data['surprise'] = profile.surpise 
+    emotion_data['love'] = profile.love 
+    emotion_data['anger'] = profile.anger 
+    emotion_data['fear'] = profile.fear 
+    N = 10 
+    happy_songs = 0 
+    calm_songs = 0 
+    energetic_songs = 0 
+    sad_songs = 0 
+
+    # keys = list(emotion_data.keys())
+    # values = list(emotion_data.values())
+    # sorted_value_index = np.argsort(values)
+    # sor = {keys[i]: values[i] for i in sorted_value_index}
+    sorted_emotion_data = dict(sorted(emotion_data.items(), key=lambda x:x[1], reverse=True))
+    
+    for emotion, emo_val in sorted_emotion_data.items():
+        if(N<=0):
+            break 
+        curr_val = emo_val/10
+        if(emotion == 'sadness'):
+            sad_songs += int(curr_val) 
+            
+
+        elif(emotion == 'joy' or emotion == 'surprise' ):
+            happy_songs += int(curr_val/2)
+            energetic_songs += int(math.ceil(curr_val- happy_songs ))
+            
+        
+        elif(emotion == 'love' or emotion == 'fear'):
+            calm_songs += int(curr_val)
+            
+        elif(emotion == 'anger'):
+            calm_songs += int(curr_val/2)
+            energetic_songs += int(math.ceil(curr_val- calm_songs ))
+
+        else: 
+            continue
+
+        N = N - int(curr_val)
+            
+    print (happy_songs, sad_songs, calm_songs,energetic_songs)
+
+
+
+    
+    print(sorted_emotion_data)
+
+
     dataframe = {}
-    for i in range(len(df)):
+    df1 = df_happy.sample(n=happy_songs)
+    df2 = df_calm.sample(n=calm_songs)
+    df3 = df_energetic.sample(n=energetic_songs)
+    df4 = df_sad.sample(n=sad_songs)
+
+    df1 = pd.concat([df1,df2,df3,df4])
+   
+    for i in df1.index:
         data = {}
-        data['name'] = df['name'][i]
+
+        data['name'] =  df1.loc[i, "name"]
         data['id'] = "https://open.spotify.com/embed/track/" + \
-            df['id'][i] + "?utm_source=generator"
-        data['artist'] = df['artist'][i]
-        data['mood'] = df['mood'][i]
+            df1['id'][i] + "?utm_source=generator"
+        data['artist'] = df1['artist'][i]
+        data['mood'] = df1['mood'][i]
         dataframe[i] = data
     df2 = {}
     df2['data'] = dataframe
@@ -39,8 +107,14 @@ def songs(request):
 
 @login_required
 def result(request):
-    file = open("index.pkl", "rb")
-    index = pickle.load(file)
+    # file = open("index.pkl", "rb")
+    # index = pickle.load(file)
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.filter(user=user).first()
+    song = '1999'
+    if(profile.music):
+        song = profile.music
+    index = recommendation(song,'cosine')
     dataframe = {}
     for i in index:
         data = {}
@@ -59,9 +133,13 @@ def result(request):
 def test(request):
     if request.method == "GET":
         song = list(request.GET.keys())[0]
-        index = recommendation(song, 'cosine')
+        user = User.objects.get(username=request.user.username)
+        profile = Profile.objects.filter(user=user).first()
+        profile.music = song
+        profile.save()
+        # index = recommendation(song, 'cosine')
         
-        pickle.dump(index, open('index.pkl', 'wb'))
+        # pickle.dump(index, open('index.pkl', 'wb'))
         return result(request)
     return result(request)
 

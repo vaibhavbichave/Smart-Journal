@@ -3,7 +3,8 @@
 
 {% block content %}
 
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}"/>
 {% if error %}
 {{ error }}
 
@@ -11,24 +12,28 @@
 <br/>
 {% endif %}
 
-<h1>Login!</h1>
 
+<div class="card login-card">
+<div class="card-header">
+<h1>Login!</h1>
+</div>
+<div class="card-body">
 <form method = "POST" action="{% url 'login' %}">
     {% csrf_token %}
-    username:
     <br/>
-    <input type="text" name="username" />
+    <input class="form-input" type="text" name="username" placeholder="username"/>
     <br/>
-    Password:
     <br/>
-    <input type="password" name="password" />
+    <input class="form-input" type="password" name="password" placeholder="password"/>
     <br/>
-    <input class ="btn btn-primary" type="submit" value= "Login" />
+    <input class ="btn btn-primary submit-btn" type="submit" value= "Login" />
     <br/>
-
-
-
 </form>
+<p class="p-text">Don't have an account? <a href="/signup">Signup!</a></p>
+</div>
+
+</div>
+
 
 
 {% endblock %}

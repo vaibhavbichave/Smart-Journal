@@ -13,7 +13,7 @@ class Profile(models.Model):
     anger = models.FloatField(default=(100/6))
     fear = models.FloatField(default=(100/6))
     text = models.CharField(max_length=1000, blank=True, null=True)
-    music = models.CharField(max_length=100,null=True)
+    music = models.CharField(max_length=100,default='1999')
 
     def str(self):
         return self.user.username

@@ -24,7 +24,7 @@
       <h2 class="heading2">Smart journal</h2>
       <div class="journal">
         <form action="{% url 'predictMood' %}" method="post">
-          <input
+          <textarea
             type="text"
             class="form__input journalSpace"
             name="entry"
@@ -32,7 +32,8 @@
             placeholder="How do you feel today?"
             required
             autocomplete="off"
-          />
+            style="height: 50vh;"
+          ></textarea>
           <label for="url" class="form__label"></label>
           <button class="button btn btn-primary" role="button">
             View Emotion percentage
