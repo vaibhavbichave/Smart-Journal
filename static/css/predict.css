@@ -1,9 +1,9 @@
 body {
-    background-color: rgb(201, 235, 235);
+    background-color: #F2EEEB;
 }
 
 .heading2 {
-    color: rgb(106, 103, 103);
+    color:  #2f3557;
     text-align: center;
     margin: 5%;
 }
@@ -23,7 +23,7 @@ canvas {
 .btn {
     width: max-content;
     margin: 4%;
-    background-color: rgb(32, 147, 109);
+    background-color: #ed6774;
     border: none;
 }
 

@@ -3,10 +3,19 @@ body {
 }
 h1 {
     font-size: x-large;
+    color: #F2EEEB;
 }
 .login-card {
+    background-color: #2f3557;
     width: 70%;
+    margin-top: 2vh;
     margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+.card-body {
+    background: #2f3557;
+    
 }
 .form-input {
     margin: auto;
@@ -16,7 +25,9 @@ h1 {
 .submit-btn {
     margin-top: 2vh;
 }
+
 .p-text {
     font-size: small;
     margin-top: 2%;
+    color: #F2EEEB;
 }
