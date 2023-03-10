@@ -28,13 +28,14 @@ canvas {
 }
 
 .journalSpace {
+
     width: 100%;
     height: 50vh;
     margin: 2%;
     border: none;
     padding: 2%;
     border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: #2f3557 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .prediction {
