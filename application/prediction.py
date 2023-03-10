@@ -38,20 +38,13 @@ def predict_deep(sentence, model):
 emotions = {'sadness': 0, 'joy': 1, 'surprise': 2,
             'love': 3, 'anger': 4, 'fear': 5}
 
-tokenizer_file = open("model/tokenizer.pkl", "rb")
+tokenizer_file = open("static/model/tokenizer.pkl", "rb")
 tokenizer = pickle.load(tokenizer_file)
 tokenizer_file.close()
 
-json_file = open('model/model.json', 'r')
+json_file = open('static/model/model.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
-loaded_model.load_weights("model/model.h5")
+loaded_model.load_weights("static/model/model.h5")
 
-
-def index():
-    if request.method == "POST":
-        sentence = request.form["url"]
-        percents, mood = predict_deep(sentence, loaded_model)
-        return render_template("index.html", xx=mood, yy=percents)
-    return render_template("index.html", xx="")

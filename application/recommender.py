@@ -47,6 +47,7 @@ def recommendation(songName, model_Name):
     elif model_Name == 'euclidean':
         model = euclidian
     SongIndex = getSongIndex(songName)
+    # TODO get index from frontend
     score = list(enumerate(model[SongIndex]))
     sim_score = sorted(score, key=lambda x: x[1], reverse=True)
     sim_score = sim_score[1:11]

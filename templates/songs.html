@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
-
-{% block content %}
-
-{% load static %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 <html lang="en">
   <!-- SECTION HEAD -->
 
@@ -63,14 +59,29 @@
             <th>Song Name</th>
             <th></th>
             <th>Mood</th>
-            
           </tr>
         </thead>
         <tbody>
           {% for index,song in data.items %}
           <tr>
-            <td><iframe style="border-radius:12px" src={{song.id}} width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" id="spotifyplayer"></iframe></td>
-                        <td><button class="btn" onclick="{AjaxCall('{{song.name}}')}">View Similar</button></td>
+            <td>
+              <iframe
+                style="border-radius: 12px"
+                src="{{song.id}}"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                id="spotifyplayer"
+              ></iframe>
+            </td>
+            <td>
+              <button class="btn" onclick="{AjaxCall('{{song.name}}')}">
+                View Similar
+              </button>
+            </td>
 
             <td>{{song.mood}}</td>
           </tr>
