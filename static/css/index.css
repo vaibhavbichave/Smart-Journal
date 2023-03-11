@@ -1,6 +1,7 @@
 body {
   font-family: verdana;
   font-size: larger;
+  background-color:  #057a8d;
 }
 
 .heading1 {
@@ -25,7 +26,7 @@ form {
   width: max-content;
   margin: auto;
   margin-bottom: 2%;
-  background-color: #5bc0de;
+  background-color:  #057a8d;
   border: none;
   border-radius: 5px;
 }
@@ -50,7 +51,7 @@ form {
 
 
 .box select {
-  background-color: #5bc0de;
+  background-color:  #057a8d;
   color: white;
   padding: 12px;
   width: 150px;
