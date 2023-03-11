@@ -22,13 +22,13 @@
 <form method = "POST" action="{% url 'signup' %}">
     {% csrf_token %}
     <br/>
-    <input type="text" name="username" placeholder="username"/>
+    <input class="form-input" type="text" name="username" placeholder="username"/>
     <br/>
     <br/>
-    <input type="password" name="password1" placeholder="password"/>
+    <input class="form-input" type="password" name="password1" placeholder="password"/>
     <br/>
     <br/>
-    <input type="password" name="password2" placeholder="confirm password"/>
+    <input class="form-input" type="password" name="password2" placeholder="confirm password"/>
     <br/>
     <input class ="btn btn-primary submit-btn" type="submit" value= "Signup" />
     <br/>
