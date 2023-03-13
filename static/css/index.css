@@ -1,7 +1,7 @@
 body {
   font-family: verdana;
   font-size: larger;
-  background-color:  #057a8d;
+  background-color: #cbebe6;
 }
 
 .heading1 {
@@ -26,7 +26,7 @@ form {
   width: max-content;
   margin: auto;
   margin-bottom: 2%;
-  background-color:  #057a8d;
+  background-color:  #cbebe6;
   border: none;
   border-radius: 5px;
 }
@@ -51,7 +51,7 @@ form {
 
 
 .box select {
-  background-color:  #057a8d;
+  background-color:  #cbebe6;
   color: white;
   padding: 12px;
   width: 150px;
@@ -86,4 +86,15 @@ form {
 
 .box select option {
   padding: 30px;
+}
+
+.song-card{
+  margin: 3%;
+  padding: 2%;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;}
+
+.button{
+  text-align: left;
+  background-color: #ed6774;
+  border: none;
 }

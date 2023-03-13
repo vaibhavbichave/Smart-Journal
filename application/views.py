@@ -51,9 +51,10 @@ def songs(request):
     sorted_emotion_data = dict(sorted(emotion_data.items(), key=lambda x:x[1], reverse=True))
     
     for emotion, emo_val in sorted_emotion_data.items():
-        if(N<=0):
-            break 
+       
         curr_val = emo_val/10
+        if(N - int(curr_val)<0):
+            break 
         if(emotion == 'sadness'):
             sad_songs += int(curr_val) 
             
@@ -149,7 +150,6 @@ def journal(request):
     return render(request, 'journal.html')
 
 
-@login_required
 def homepage(request):
     return render(request, 'home.html')
 

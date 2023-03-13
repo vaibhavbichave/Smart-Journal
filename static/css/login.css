@@ -1,12 +1,15 @@
 body {
     text-align: center;
+
+    background-color: #cbebe6;
 }
 h1 {
     font-size: x-large;
-    color: #F2EEEB;
+    color: #171819;
 }
 .login-card {
-    background-color: #2f3557;
+    background-color: #f6ccca;
+    color: #171819;
     width: 70%;
     margin-top: 2vh;
     margin: auto;
@@ -14,7 +17,8 @@ h1 {
 
 }
 .card-body {
-    background: #2f3557;
+  
+    background-color: #f6ccca;
     
 }
 .form-input {
@@ -29,5 +33,5 @@ h1 {
 .p-text {
     font-size: small;
     margin-top: 2%;
-    color: #F2EEEB;
+    color:  #171819;
 }

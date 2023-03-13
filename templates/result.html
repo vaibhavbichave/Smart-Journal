@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'base.html' %} {% block content %} {% load static %}
+
 <html lang="en">
   <!-- SECTION HEAD -->
 
@@ -28,29 +28,33 @@
 
   <!-- SECTION BODY -->
   <body>
-    <div class="container recommendation">
-      <table class="table table-borderless songTable" id="myTable">
-        <thead>
-          <tr>
-            <th>Song Name</th>
-            <th>Artist</th>
-            <th>Mood</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-           {% for index,song in data.items %}
-          <tr>
-            <td><iframe style="border-radius:12px" src={{song.id}} width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" id="spotifyplayer"></iframe></td>
-                        <td><button class="btn" onclick="{AjaxCall('{{song.name}}')}">View Similar</button></td>
+    <div>
+    <div class="row song-row">
+      {% for index,song in data.items %}
+        <div class="song-card col-sm-3">
+         <iframe
+                style="border-radius: 12px"
+                src="{{song.id}}"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                id="spotifyplayer"
+              ></iframe>
+             
+          Mood: {{song.mood}}
+          <br>
+          <button class="btn button" onclick="{AjaxCall('{{song.name}}')}">
+              View Similar
+          </button>
+        </div>
 
-            <td>{{song.mood}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% endfor %}
+      
     </div>
-
+  </div>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -78,3 +82,4 @@
   </body>
   <!-- !SECTION HEAD -->
 </html>
+{% endblock %}

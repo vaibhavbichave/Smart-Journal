@@ -1,4 +1,21 @@
-body {
-	background-color: #F2EEEB;
-}
 
+
+.navbar a {
+	float: left;
+	display: block;
+	color: #171819;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	border-bottom: 3px solid transparent;
+	font-weight: 500;
+  }
+
+.navbar a:hover {
+	border-bottom: 3px solid  #171819;
+  }
+  
+  .navbar a.active {
+	border-bottom: 3px solid  #171819;
+  }
