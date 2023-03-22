@@ -21,9 +21,19 @@
 
   <body>
     <div class="container">
-      <h2 class="heading2">Current mood</h2>
       
-      <div class="prediction">
+      <div class="card dashboardCard prediction ">
+      <h4 class="card-title">Profile</h4>
+        <p><b>Username:</b> {{ name }}</p>
+        <p><b>Current entry emotion statistics:</b></p>
+        <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
+
+        {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
+      </div>
+      <div class="card dashboardCard2 prediction">
+      <h4 class="card-title">Last entry</h4>
+        <p>{{ journalText }}</p>
+      
         <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
 
         {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}

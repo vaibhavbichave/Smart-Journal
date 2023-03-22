@@ -147,7 +147,12 @@ def test(request):
 
 @login_required
 def journal(request):
-    return render(request, 'journal.html')
+    user = User.objects.get(username=request.user.username)
+    profile = Profile.objects.filter(user=user).first()
+    context = {
+        "journalText": profile.text,
+    }
+    return render(request, 'journal.html', context)
 
 
 def homepage(request):
@@ -233,5 +238,7 @@ def dashboard(request):
         return redirect('/login/')
     percents =[profile.sadness,profile.joy,profile.surpise ,profile.love ,profile.anger ,profile.fear]
     data={}
+    data['name'] = user.username
+    data['journalText'] = profile.text
     data['yy'] = percents
     return render(request,'dashboard.html',data)
