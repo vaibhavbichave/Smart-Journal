@@ -21,10 +21,11 @@ from application.prediction import predict_deep, loaded_model
 # pickle.dump(index, open('index.pkl', 'wb'))
 df = pd.read_csv('static/dataset/data_moods.csv')
 
-df_happy = df[df.mood=='Happy']
-df_calm = df[df.mood=='Calm']
-df_sad = df[df.mood=='Sad']
-df_energetic = df[df.mood=='Energetic']
+df_happy = df[df.mood == 'Happy']
+df_calm = df[df.mood == 'Calm']
+df_sad = df[df.mood == 'Sad']
+df_energetic = df[df.mood == 'Energetic']
+
 
 @login_required
 def songs(request):
@@ -32,57 +33,68 @@ def songs(request):
     profile = Profile.objects.filter(user=user).first()
     emotion_data = {}
     # {'sadness': 0, 'joy': 1, 'surprise': 2,'love': 3, 'anger': 4, 'fear': 5}
-    emotion_data['sadness'] = profile.sadness 
-    emotion_data['joy'] = profile.joy 
-    emotion_data['surprise'] = profile.surpise 
-    emotion_data['love'] = profile.love 
-    emotion_data['anger'] = profile.anger 
-    emotion_data['fear'] = profile.fear 
-    N = 10 
-    happy_songs = 0 
-    calm_songs = 0 
-    energetic_songs = 0 
-    sad_songs = 0 
+    emotion_data['sadness'] = profile.sadness
+    emotion_data['joy'] = profile.joy
+    emotion_data['surprise'] = profile.surpise
+    emotion_data['love'] = profile.love
+    emotion_data['anger'] = profile.anger
+    emotion_data['fear'] = profile.fear
+    N = 10
+    happy_songs = 0
+    calm_songs = 0
+    energetic_songs = 0
+    sad_songs = 0
 
-    # keys = list(emotion_data.keys())
-    # values = list(emotion_data.values())
-    # sorted_value_index = np.argsort(values)
-    # sor = {keys[i]: values[i] for i in sorted_value_index}
-    sorted_emotion_data = dict(sorted(emotion_data.items(), key=lambda x:x[1], reverse=True))
-    
+    sorted_emotion_data = dict(
+        sorted(emotion_data.items(), key=lambda x: x[1], reverse=True))
+
     for emotion, emo_val in sorted_emotion_data.items():
-       
+
         curr_val = emo_val/10
-        if(N - int(curr_val)<0):
-            break 
-        if(emotion == 'sadness'):
-            sad_songs += int(curr_val) 
-            
+        if (N - int(curr_val) < 0):
+            break
+        if (emotion == 'sadness'):
+            sad_songs += int(curr_val)
 
-        elif(emotion == 'joy' or emotion == 'surprise' ):
+        elif (emotion == 'joy' or emotion == 'surprise'):
             happy_songs += int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val- happy_songs ))
-            
-        
-        elif(emotion == 'love' or emotion == 'fear'):
-            calm_songs += int(curr_val)
-            
-        elif(emotion == 'anger'):
-            calm_songs += int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val- calm_songs ))
+            energetic_songs += int(math.ceil(curr_val - happy_songs))
 
-        else: 
+        elif (emotion == 'love' or emotion == 'fear'):
+            calm_songs += int(curr_val)
+
+        elif (emotion == 'anger'):
+            calm_songs += int(curr_val/2)
+            energetic_songs += int(math.ceil(curr_val - calm_songs))
+
+        else:
             continue
 
         N = N - int(curr_val)
-            
-    print (happy_songs, sad_songs, calm_songs,energetic_songs)
 
+    songs_value = happy_songs + sad_songs + calm_songs + energetic_songs
+    if (songs_value < 10):
+        if (10 - songs_value + happy_songs <= 10):
+            happy_songs = 10 - songs_value + happy_songs
+        elif (10 - songs_value + sad_songs <= 10):
+            happy_songs = 10 - songs_value + sad_songs
+        elif (10 - songs_value + calm_songs <= 10):
+            happy_songs = 10 - songs_value + calm_songs
+        elif (10 - songs_value + energetic_songs <= 10):
+            happy_songs = 10 - songs_value + energetic_songs
 
+    if (songs_value > 10):
+        if (10 - songs_value + happy_songs >= 0):
+            happy_songs = 10 - songs_value + happy_songs
+        elif (10 - songs_value + sad_songs >= 0):
+            happy_songs = 10 - songs_value + sad_songs
+        elif (10 - songs_value + calm_songs >= 0):
+            happy_songs = 10 - songs_value + calm_songs
+        elif (10 - songs_value + energetic_songs >= 0):
+            happy_songs = 10 - songs_value + energetic_songs
 
-    
+    print(happy_songs, sad_songs, calm_songs, energetic_songs)
     print(sorted_emotion_data)
-
 
     dataframe = {}
     df1 = df_happy.sample(n=happy_songs)
@@ -90,12 +102,12 @@ def songs(request):
     df3 = df_energetic.sample(n=energetic_songs)
     df4 = df_sad.sample(n=sad_songs)
 
-    df1 = pd.concat([df1,df2,df3,df4])
-   
+    df1 = pd.concat([df1, df2, df3, df4])
+
     for i in df1.index:
         data = {}
 
-        data['name'] =  df1.loc[i, "name"]
+        data['name'] = df1.loc[i, "name"]
         data['id'] = "https://open.spotify.com/embed/track/" + \
             df1['id'][i] + "?utm_source=generator"
         data['artist'] = df1['artist'][i]
@@ -113,9 +125,9 @@ def result(request):
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.filter(user=user).first()
     song = '1999'
-    if(profile.music):
+    if (profile.music):
         song = profile.music
-    index = recommendation(song,'cosine')
+    index = recommendation(song, 'cosine')
     dataframe = {}
     for i in index:
         data = {}
@@ -139,7 +151,7 @@ def test(request):
         profile.music = song
         profile.save()
         # index = recommendation(song, 'cosine')
-        
+
         # pickle.dump(index, open('index.pkl', 'wb'))
         return result(request)
     return result(request)
@@ -229,16 +241,17 @@ def predictMood(request):
         return redirect("/dashboard/")
         # return render(request, "song.html", {xx=mood, yy=percents})
     return render(request, 'login.html')
-   
+
 
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
     profile = Profile.objects.filter(user=user).first()
     if profile is None:
         return redirect('/login/')
-    percents =[profile.sadness,profile.joy,profile.surpise ,profile.love ,profile.anger ,profile.fear]
-    data={}
+    percents = [profile.sadness, profile.joy, profile.surpise,
+                profile.love, profile.anger, profile.fear]
+    data = {}
     data['name'] = user.username
     data['journalText'] = profile.text
     data['yy'] = percents
-    return render(request,'dashboard.html',data)
+    return render(request, 'dashboard.html', data)

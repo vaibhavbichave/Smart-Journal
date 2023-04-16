@@ -1,5 +1,5 @@
 body {
-    background-color:  #cbebe6;
+    background-color: #cbebe6;
 }
 
 .heading2 {
@@ -27,10 +27,7 @@ canvas {
     border: none;
 }
 
-.journalSpace {
-
-   
-}
+.journalSpace {}
 
 .prediction {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -38,36 +35,41 @@ canvas {
     margin: 4%;
 }
 
-.dashboardCard, .dashboardCard2{
+.dashboardCard,
+.dashboardCard2 {
     padding: 4%;
-    
+
 }
+
 canvas {
     margin: auto;
 }
 
-    textarea, .dashboardCard2
-    {
-        border: 1px solid #EEEEEE;
-        border-radius: 8px;
-        
-        
-        outline: none;
-        box-shadow: 1px 1px 0 #DDDDDD;
-        display: block;
-        font-family: 'Marck Script',cursive;
-        font-size: 22px;
-        line-height: 50px;
-        margin: 2% auto;
-        padding: 11px 25px 10px 70px;
-        resize: none;
-        height: 80vh;
-        width: 100%;
+textarea,
+.dashboardCard2 {
 
-        background-image: -moz-linear-gradient(top , transparent, transparent 48px,#E7EFF8 0px), -moz-radial-gradient(2% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%); 
-        background-image: -webkit-linear-gradient(top , transparent, transparent 48px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 29%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 33.5%, transparent 0%);
+    border: 1px solid #EEEEEE;
+    border-radius: 8px;
 
-        -webkit-background-size:  100% 52px;
-        background-size: 100% 50px;
-        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-    }
+
+    outline: none;
+    box-shadow: 1px 1px 0 #DDDDDD;
+    display: block;
+    font-family: 'Marck Script', cursive;
+    font-size: 22px;
+    line-height: 50px;
+    margin: 2% auto;
+    padding: 11px 25px 10px 70px;
+    resize: none;
+    height: 80vh;
+    width: 100%;
+
+    background-image: -moz-linear-gradient(top, transparent, transparent 48px, #E7EFF8 0px), -moz-radial-gradient(2% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46%, circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);
+    background-image: -webkit-linear-gradient(top, transparent, transparent 48px, #E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 29%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 33.5%, transparent 0%);
+
+    -webkit-background-size: 100% 52px;
+    background-size: 100% 50px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    /* added by vaibhav */
+    overflow: scroll;
+}
