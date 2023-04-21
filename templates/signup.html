@@ -14,23 +14,24 @@
 <br/>
 {% endif %}
 
-<div class="card login-card">
-<div class="card-header">
-<h1>SignUp!</h1>
-</div>
+
 <div class="card-body">
+<h1>SignUp!</h1>
+
+
 <form method = "POST" action="{% url 'signup' %}">
     {% csrf_token %}
     <br/>
-    <input class="form-input" type="text" name="username" placeholder="username"/>
+    <input class="form-input" type="text" name="username" placeholder="Username"/>
     <br/>
     <br/>
-    <input class="form-input" type="password" name="password1" placeholder="password"/>
+    <input class="form-input" type="password" name="password1" placeholder="Password"/>
     <br/>
     <br/>
-    <input class="form-input" type="password" name="password2" placeholder="confirm password"/>
+    <input class="form-input" type="password" name="password2" placeholder="Confirm password"/>
     <br/>
-    <input class ="btn btn-primary submit-btn" type="submit" value= "Signup" />
+    <input class ="custom-btn btn-bg btn mt-3" type="submit" value= "Signup" />
+    <p class="p-text">Have an account already? <a href="/login">Login!</a></p>
     <br/>
 
 
@@ -38,6 +39,5 @@
 </form>
 </div>
 
-</div>
 
 {% endblock %}

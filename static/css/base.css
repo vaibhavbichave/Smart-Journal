@@ -1,21 +1,26 @@
 
+.navbar{
+	background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
 
+}
 .navbar a {
 	float: left;
 	display: block;
-	color: #171819;
+	color: #e0eaf5;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
 	font-size: 20px;
 	border-bottom: 3px solid transparent;
 	font-weight: 500;
+	
   }
 
 .navbar a:hover {
-	border-bottom: 3px solid  #171819;
+	border-bottom: 3px solid  #e0eaf5;
   }
   
   .navbar a.active {
-	border-bottom: 3px solid  #171819;
+	border-bottom: 3px solid  #e0eaf5;
   }

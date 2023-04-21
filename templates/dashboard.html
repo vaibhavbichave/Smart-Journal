@@ -75,10 +75,12 @@
 
       new Chart("myChart", {
         type: "bar",
+        scaleFontColor: "#FFFFFF",
         data: {
           labels: xValues,
           datasets: [
             {
+              
               backgroundColor: barColors,
               data: yValues,
             },
@@ -86,11 +88,33 @@
         },
         options: {
           legend: { display: false },
+          labels: {
+          color: "white", 
+          font: {
+            size: 18
+          }
+        },
           title: {
             display: true,
             text: "Emotion percentage",
+            fontColor:'white',
           },
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                    fontColor: 'white'
+                },
+            }],
+          xAxes: [{
+                ticks: {
+                    fontColor: 'white'
+                },
+            }]
+        } 
+
         },
+        
       });
     </script>
   </body>

@@ -1,7 +1,38 @@
+:root {
+  --primary-color:#cbebe6;
+  --secondary-color: #f1c111;
+  --white-color: #ffffff;
+  --dark-color: #171819;
+  --project-bg: #f0f8ff;
+  --menu-bg: #0c8195;
+
+  --title-color: #15141a;
+  --gray-color: #909090;
+  --link-color: #404040;
+  --p-color: #666262;
+
+  --base-font-family: "Plain-Light", sans-serif;
+  --title-font-family: "Plain-Regular", sans-serif;
+  --font-bold-family: "Plain-Bold", sans-serif;
+  --font-weight-bold: bold;
+
+  --h1-font-size: 42px;
+  --h2-font-size: 32px;
+  --h3-font-size: 24px;
+  --p-font-size: 18px;
+  --base-font-size: 16px;
+  --menu-font-size: 14px;
+
+  --border-radius-large: 100px;
+  --border-radius-small: 5px;
+}
+
 body {
-  font-family: verdana;
+  font-family:Georgia, 'Times New Roman', Times, serif;
   font-size: larger;
-  background-color: #cbebe6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%23302039' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%234f314a' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%236e4358' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%238d5865' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%23aa6f70' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23C5887B' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .heading1 {
@@ -36,6 +67,7 @@ form {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: grid;
   margin: auto;
+  
 }
 
 .btn2 {
@@ -91,10 +123,43 @@ form {
 .song-card{
   margin: 3%;
   padding: 2%;
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;}
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  border-radius: 6px;
+}
 
 .button{
   text-align: left;
   background-color: #ed6774;
   border: none;
 }
+
+
+/* BUTTON */
+.custom-btn {
+    background: #6f7a87;
+    border: 2px solid var(--dark-color);
+    border-radius: var(--border-radius-large);
+    padding: 2%;
+    width:100%;
+    font-family: var(--title-font-family);
+    font-size: var(--p-font-size);
+    white-space: nowrap;
+  }
+  
+  .custom-btn.btn-bg {
+    background: #8f188974;
+    color: white;
+    border-color: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-btn:hover,
+  .custom-btn:focus {
+    background: var(--dark-color);
+    color: var(--white-color);
+    border-color: transparent;
+  }
+  
