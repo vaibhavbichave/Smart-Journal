@@ -50,48 +50,31 @@ def songs(request):
 
     for emotion, emo_val in sorted_emotion_data.items():
 
-        curr_val = emo_val/10
+        curr_val = int(emo_val+5/10)
         if (N - int(curr_val) < 0):
-            break
+            curr_val = N
+            
         if (emotion == 'sadness'):
             sad_songs += int(curr_val)
 
         elif (emotion == 'joy' or emotion == 'surprise'):
-            happy_songs += int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val - happy_songs))
+            res_val = int(curr_val/2)
+            energetic_songs += int(math.ceil(curr_val - res_val))
+            happy_songs += res_val
 
         elif (emotion == 'love' or emotion == 'fear'):
             calm_songs += int(curr_val)
 
         elif (emotion == 'anger'):
-            calm_songs += int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val - calm_songs))
+            res_val = int(curr_val/2)
+            energetic_songs += int(math.ceil(curr_val - res_val))
+            calm_songs += res_val
 
         else:
             continue
 
         N = N - int(curr_val)
 
-    songs_value = happy_songs + sad_songs + calm_songs + energetic_songs
-    if (songs_value < 10):
-        if (10 - songs_value + happy_songs <= 10):
-            happy_songs = 10 - songs_value + happy_songs
-        elif (10 - songs_value + sad_songs <= 10):
-            happy_songs = 10 - songs_value + sad_songs
-        elif (10 - songs_value + calm_songs <= 10):
-            happy_songs = 10 - songs_value + calm_songs
-        elif (10 - songs_value + energetic_songs <= 10):
-            happy_songs = 10 - songs_value + energetic_songs
-
-    if (songs_value > 10):
-        if (10 - songs_value + happy_songs >= 0):
-            happy_songs = 10 - songs_value + happy_songs
-        elif (10 - songs_value + sad_songs >= 0):
-            happy_songs = 10 - songs_value + sad_songs
-        elif (10 - songs_value + calm_songs >= 0):
-            happy_songs = 10 - songs_value + calm_songs
-        elif (10 - songs_value + energetic_songs >= 0):
-            happy_songs = 10 - songs_value + energetic_songs
 
     print(happy_songs, sad_songs, calm_songs, energetic_songs)
     print(sorted_emotion_data)
