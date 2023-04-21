@@ -19,9 +19,7 @@
     <script type="text/javascript" src="{% static '/js/index.js' %}"></script>
     <title>Home</title>
     <style>
-      body {
-        background-image: url("{% static 'images/image.png' %}");
-      }
+     
     </style>
   </head>
   <!-- !SECTION HEAD -->
@@ -46,7 +44,7 @@
              
           Mood: {{song.mood}}
           <br>
-          <button class="btn button" onclick="{AjaxCall('{{song.name}}')}">
+          <button class="custom-btn btn-bg btn mt-3" onclick="{AjaxCall('{{song.name}}')}">
               View Similar
           </button>
         </div>
