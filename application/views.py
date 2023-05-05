@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model, login, logout
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from application.models import Profile
+from application.models import Profile, ProfileEntries, ProfileMood, CustomProfile
 import os
 import math
 import pandas as pd
@@ -30,60 +30,60 @@ df_energetic = df[df.mood == 'Energetic']
 @login_required
 def songs(request):
     user = User.objects.get(username=request.user.username)
-    profile = Profile.objects.filter(user=user).first()
+    profile = ProfileMood.objects.filter(user=user).first()
     emotion_data = {}
     # {'sadness': 0, 'joy': 1, 'surprise': 2,'love': 3, 'anger': 4, 'fear': 5}
-    emotion_data['sadness'] = profile.sadness
-    emotion_data['joy'] = profile.joy
-    emotion_data['surprise'] = profile.surpise
-    emotion_data['love'] = profile.love
-    emotion_data['anger'] = profile.anger
-    emotion_data['fear'] = profile.fear
-    N = 10
-    happy_songs = 0
-    calm_songs = 0
-    energetic_songs = 0
-    sad_songs = 0
+    # emotion_data['sadness'] = profile.sadness
+    # emotion_data['joy'] = profile.joy
+    # emotion_data['surprise'] = profile.surpise
+    # emotion_data['love'] = profile.love
+    # emotion_data['anger'] = profile.anger
+    # emotion_data['fear'] = profile.fear
+    # N = 10
+    # happy_songs = 0
+    # calm_songs = 0
+    # energetic_songs = 0
+    # sad_songs = 0
 
-    sorted_emotion_data = dict(
-        sorted(emotion_data.items(), key=lambda x: x[1], reverse=True))
+    # sorted_emotion_data = dict(
+    #     sorted(emotion_data.items(), key=lambda x: x[1], reverse=True))
 
-    for emotion, emo_val in sorted_emotion_data.items():
+    # for emotion, emo_val in sorted_emotion_data.items():
 
-        curr_val = int(emo_val+5/10)
-        if (N - int(curr_val) < 0):
-            curr_val = N
+    #     curr_val = int(emo_val+5/10)
+    #     if (N - int(curr_val) < 0):
+    #         curr_val = N
             
-        if (emotion == 'sadness'):
-            sad_songs += int(curr_val)
+    #     if (emotion == 'sadness'):
+    #         sad_songs += int(curr_val)
 
-        elif (emotion == 'joy' or emotion == 'surprise'):
-            res_val = int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val - res_val))
-            happy_songs += res_val
+    #     elif (emotion == 'joy' or emotion == 'surprise'):
+    #         res_val = int(curr_val/2)
+    #         energetic_songs += int(math.ceil(curr_val - res_val))
+    #         happy_songs += res_val
 
-        elif (emotion == 'love' or emotion == 'fear'):
-            calm_songs += int(curr_val)
+    #     elif (emotion == 'love' or emotion == 'fear'):
+    #         calm_songs += int(curr_val)
 
-        elif (emotion == 'anger'):
-            res_val = int(curr_val/2)
-            energetic_songs += int(math.ceil(curr_val - res_val))
-            calm_songs += res_val
+    #     elif (emotion == 'anger'):
+    #         res_val = int(curr_val/2)
+    #         energetic_songs += int(math.ceil(curr_val - res_val))
+    #         calm_songs += res_val
 
-        else:
-            continue
+    #     else:
+    #         continue
 
-        N = N - int(curr_val)
+    #     N = N - int(curr_val)
 
 
-    print(happy_songs, sad_songs, calm_songs, energetic_songs)
-    print(sorted_emotion_data)
+    # print(happy_songs, sad_songs, calm_songs, energetic_songs)
+    # print(sorted_emotion_data)
 
     dataframe = {}
-    df1 = df_happy.sample(n=happy_songs)
-    df2 = df_calm.sample(n=calm_songs)
-    df3 = df_energetic.sample(n=energetic_songs)
-    df4 = df_sad.sample(n=sad_songs)
+    df1 = df_happy.sample(n=int(profile.happy_songs))
+    df2 = df_calm.sample(n=int(profile.calm_songs))
+    df3 = df_energetic.sample(n=int(profile.energetic_songs))
+    df4 = df_sad.sample(n=int(profile.sad_songs))
 
     df1 = pd.concat([df1, df2, df3, df4])
 
@@ -143,9 +143,9 @@ def test(request):
 @login_required
 def journal(request):
     user = User.objects.get(username=request.user.username)
-    profile = Profile.objects.filter(user=user).first()
+    # profile = Profile.objects.filter(user=user).first()
     context = {
-        "journalText": profile.text,
+        "journalText": "",#profile.text,
     }
     return render(request, 'journal.html', context)
 
@@ -163,10 +163,18 @@ def signup(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(
                     request.POST['username'], password=request.POST['password1'])
-                profile = Profile.objects.create(user=user)
+                profile = CustomProfile.objects.create(user=user)
+                profileMood = ProfileMood.objects.create(user=user)
+                # profile.first_name = request.POST['first_name'] 
+                # profile.last_name = request.POST['last_name']
+                # profile.email = request.POST['email']
+                # profile.gender = request.POST['gender']
+                # profile.age = request.POST['age']
                 user.save()
                 profile.save()
+                profileMood.save()
                 auth.login(request, user)
+
                 return redirect('home')
         else:
             return render(request, 'signup.html', {'error': 'Password does not match!'})
@@ -208,7 +216,8 @@ def predictMood(request):
 
         # emotions =   {'sadness': 0, 'joy': 1, 'surprise': 2,'love': 3, 'anger': 4, 'fear': 5}
         user = User.objects.get(username=request.user.username)
-        profile = Profile.objects.filter(user=user).first()
+        # profile = ProfileEntries.objects.filter(user=user).first()
+        profile = ProfileEntries.objects.create(user=user)
         profile.sadness = percents[0]
         profile.joy = percents[1]
         profile.surpise = percents[2]
@@ -217,6 +226,60 @@ def predictMood(request):
         profile.fear = percents[5]
         profile.text = entry
         profile.save()
+
+        emotion_data = {}
+        # {'sadness': 0, 'joy': 1, 'surprise': 2,'love': 3, 'anger': 4, 'fear': 5}
+        emotion_data['sadness'] = profile.sadness
+        emotion_data['joy'] = profile.joy
+        emotion_data['surprise'] = profile.surpise
+        emotion_data['love'] = profile.love
+        emotion_data['anger'] = profile.anger
+        emotion_data['fear'] = profile.fear
+
+        N = 10
+        happy_songs = 0
+        calm_songs = 0
+        energetic_songs = 0
+        sad_songs = 0
+
+        sorted_emotion_data = dict(
+            sorted(emotion_data.items(), key=lambda x: x[1], reverse=True))
+
+        for emotion, emo_val in sorted_emotion_data.items():
+
+            curr_val = int(emo_val+5/10)
+            if (N - int(curr_val) < 0):
+                curr_val = N
+                
+            if (emotion == 'sadness'):
+                sad_songs += int(curr_val)
+
+            elif (emotion == 'joy' or emotion == 'surprise'):
+                res_val = int(curr_val/2)
+                energetic_songs += int(math.ceil(curr_val - res_val))
+                happy_songs += res_val
+
+            elif (emotion == 'love' or emotion == 'fear'):
+                calm_songs += int(curr_val)
+
+            elif (emotion == 'anger'):
+                res_val = int(curr_val/2)
+                energetic_songs += int(math.ceil(curr_val - res_val))
+                calm_songs += res_val
+
+            else:
+                continue
+
+            N = N - int(curr_val)
+
+        profile = ProfileMood.objects.filter(user=user).first()
+        profile.happy_songs = happy_songs
+        profile.sad_songs = sad_songs
+        profile.calm_songs = calm_songs
+        profile.energetic_songs = energetic_songs
+        profile.save()
+        print(happy_songs, sad_songs, calm_songs, energetic_songs)
+        print(sorted_emotion_data)
 
         # index = recommendation(song, 'cosine')
         # pickle.dump(index, open('index.pkl', 'wb'))
