@@ -291,7 +291,7 @@ def predictMood(request):
 
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
-    profile = Profile.objects.filter(user=user).first()
+    profile = ProfileEntries.objects.filter(user=user).first()
     if profile is None:
         return redirect('/login/')
     percents = [profile.sadness, profile.joy, profile.surpise,
