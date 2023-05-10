@@ -331,3 +331,15 @@ def dashboard(request):
 
 
     return render(request, 'dashboard.html', {**data, **emotions})
+
+def previousEntry(request):
+    user = User.objects.get(username=request.user.username)
+    user_profile = ProfileEntries.objects.filter(user=user).order_by('-id')[:5][::1]
+    prev_entries = []
+    for entry in user_profile:
+        prev_entries.append(entry.text)
+
+    data = {}
+    data['entries'] = prev_entries
+    # print(prev_entries)
+    return render(request, 'previousEntry.html', data)

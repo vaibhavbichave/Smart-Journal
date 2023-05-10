@@ -10,6 +10,7 @@ urlpatterns = [
     path('predictMood/', views.predictMood, name='predictMood'),
     path('journal/', views.journal, name='journal'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('previousEntry/', views.previousEntry, name='previousEntry'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.custom_login, name='login'),
     path('logout/', views.custom_logout, name='logout'),
