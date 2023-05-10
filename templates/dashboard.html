@@ -28,13 +28,24 @@
         <p><b>Current entry emotion statistics:</b></p>
         <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
 
+        
+
         {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
       </div>
+
+      <div class="card dashboardCard prediction ">
+        <p><b>Weekly emotion statistics:</b></p>
+        <canvas id="myChart2" style="width: 100%; max-width: 700px"></canvas>
+
+        
+
+        {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
+      </div>
+      
       <div class="card dashboardCard2 prediction">
       <h4 class="card-title">Last entry</h4>
         <p>{{ journalText }}</p>
       
-        <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
 
         {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
       </div>
@@ -59,6 +70,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
     <script>
+
+      function get_Arr(arr){
+        arr = arr.slice(1, -1);
+        arr = arr.split(", ");
+        for (var i = 0; i < arr.length; i++) arr[i] = parseInt(arr[i]);
+        return arr ;
+      }
       let xx = "{{xx}}";
       let x = xx.toString();
       if (x != "") {
@@ -116,6 +134,120 @@
         },
         
       });
+var speedCanvas = document.getElementById("speedChart");
+{% comment %} "Sadness", "Joy", "Surprise", "Love", "Anger", "Fear" {% endcomment %}
+  let sad_val = "{{sad}}";
+  sad_val = get_Arr(sad_val)  
+  let joy_val = "{{joy}}";
+  joy_val = get_Arr(joy_val)  
+  let surprise_val = "{{surprise}}";
+  surprise_val = get_Arr(surprise_val)  
+  let love_val = "{{love}}";
+  love_val = get_Arr(love_val)  
+  let anger_val = "{{anger}}";
+  anger_val = get_Arr(anger_val)  
+  let fear_val = "{{fear}}";
+  fear_val = get_Arr(fear_val)  
+      
+var dataSad = {
+    label: "Sadness",
+    data: sad_val,
+    lineTension: 0,
+    fill: false,
+    borderColor: '#0c8195'
+  };
+
+var dataJoy = {
+    label: "Joy",
+    data: joy_val,
+    lineTension: 0,
+    fill: false,
+  borderColor: 'orange'
+  };
+
+var dataSurprise = {
+    label: "Surprise",
+    data: surprise_val,
+    lineTension: 0,
+    fill: false,
+    borderColor: '#dce655'
+  };
+
+var dataLove = {
+    label: "Love",
+    data: love_val,
+    lineTension: 0,
+    fill: false,
+  borderColor: 'pink'
+  };
+
+var dataAnger = {
+    label: "Anger",
+    data: anger_val,
+    lineTension: 0,
+    fill: false,
+    borderColor: '#c91010'
+  };
+
+var dataFear = {
+    label: "Fear",
+    data: fear_val,
+    lineTension: 0,
+    fill: false,
+  borderColor: 'green'
+  };
+
+var speedData = {
+  labels: ["Day1", "Day2", "Day3", "Day4", "Day5"],
+  datasets: [dataSad, dataJoy, dataSurprise, dataLove, dataAnger, dataFear]
+};
+
+var chartOptions = {
+  legend: {
+    display: true,
+    position: 'top',
+    labels: {
+      boxWidth: 80,
+      fontColor: 'black'
+    }
+  }
+};
+
+var lineChart = new Chart(myChart2, {
+  type: 'line',
+  data: speedData,
+  options:  { 
+    legend: { 
+      display: true,
+      position:'right',
+      labels: {
+        fontColor: 'white'
+      }
+      },
+    labels: {
+      color: "white", 
+      font: {
+        size: 18
+      }
+      },
+    title: {
+      display: true,
+      text: "Emotion percentage",
+      fontColor:'white',
+      },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:false,
+          fontColor: 'white'
+          },
+     }],
+        xAxes: [{
+         ticks: {
+          fontColor: 'white'
+            },
+      }]
+    }}})
     </script>
   </body>
 </html>

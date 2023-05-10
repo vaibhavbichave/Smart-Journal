@@ -291,13 +291,43 @@ def predictMood(request):
 
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
-    profile = ProfileEntries.objects.filter(user=user).first()
+    user_profile = ProfileEntries.objects.filter(user=user)
+    print (len(user_profile))
+    if len(user_profile)>5:
+        user_profile = ProfileEntries.objects.filter(user=user).order_by('-id')[:5][::-1]
+    print(user_profile)
+    profile = ProfileEntries.objects.filter(user=user).last()
     if profile is None:
         return redirect('/login/')
+    
+    emotions = {}
+    emo_sad = []
+    emo_joy = []
+    emo_love = []
+    emo_surprise = []
+    emo_anger = []
+    emo_fear = []
+    for entry in user_profile:
+        emo_sad.append(entry.sadness)
+        emo_joy.append(entry.joy)
+        emo_love.append(entry.love)
+        emo_surprise.append(entry.surpise)
+        emo_anger.append(entry.anger)
+        emo_fear.append(entry.fear)
+
+    emotions['sad'] = emo_sad
+    emotions['joy'] = emo_joy
+    emotions['surprise'] = emo_surprise
+    emotions['love'] = emo_love
+    emotions['anger'] = emo_anger
+    emotions['fear'] = emo_fear
+
     percents = [profile.sadness, profile.joy, profile.surpise,
                 profile.love, profile.anger, profile.fear]
     data = {}
     data['name'] = user.username
     data['journalText'] = profile.text
     data['yy'] = percents
-    return render(request, 'dashboard.html', data)
+
+
+    return render(request, 'dashboard.html', {**data, **emotions})

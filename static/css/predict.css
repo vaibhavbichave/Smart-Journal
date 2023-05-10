@@ -122,7 +122,7 @@ textarea,
     border: 2px solid var(--dark-color);
     border-radius: var(--border-radius-large);
     padding: 1%;
-    width:25%;
+    margin-bottom: 5%;
     font-family: var(--title-font-family);
     font-size: var(--p-font-size);
     white-space: nowrap;
