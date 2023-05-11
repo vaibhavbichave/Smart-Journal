@@ -35,10 +35,11 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
-            {% for e in entries %}
+            {% for i,j in entries %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
               <div class="card entryCard">
-                <h4>{{e}}</h4>
+                <h6>{{i}}</h6>
+                <h4>{{j}}</h4>
               </div>              
             </div>
             {% endfor %}
