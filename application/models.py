@@ -54,6 +54,6 @@ class CustomProfile(models.Model):
     contact = models.CharField(max_length=15, null=True)
     gender = models.CharField(max_length=10, null=True)
     age = models.IntegerField(null=True)
-
+    music = models.CharField(max_length=100,default='1999')
     def str(self):
         return self.user.username

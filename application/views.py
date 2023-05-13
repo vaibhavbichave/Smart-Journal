@@ -106,7 +106,8 @@ def result(request):
     # file = open("index.pkl", "rb")
     # index = pickle.load(file)
     user = User.objects.get(username=request.user.username)
-    profile = Profile.objects.filter(user=user).first()
+    profile = CustomProfile.objects.filter(user=user).first()
+    print(profile)
     song = '1999'
     if (profile.music):
         song = profile.music
@@ -130,7 +131,7 @@ def test(request):
     if request.method == "GET":
         song = list(request.GET.keys())[0]
         user = User.objects.get(username=request.user.username)
-        profile = Profile.objects.filter(user=user).first()
+        profile = CustomProfile.objects.filter(user=user).first()
         profile.music = song
         profile.save()
         # index = recommendation(song, 'cosine')
