@@ -24,9 +24,14 @@
       
       <div class="card dashboardCard prediction ">
       <h4 class="card-title">Profile</h4>
-        <p><b>Username:</b> {{ name }}</p>
-        <p><b>Current entry emotion statistics:</b></p>
+        <h5><b>Username:</b> {{ name }}</h5>
+        <h4 class="heading2"><b>Current entry emotion statistics</b></h4>
         <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
+      </div>
+
+      <div class="card dashboardCard prediction ">
+        <h4 class="heading2"><b>Weekly emotion statistics</b></h4>
+        <canvas id="myChart2" style="width: 100%; max-width: 700px"></canvas>
 
         
 
@@ -34,21 +39,102 @@
       </div>
 
       <div class="card dashboardCard prediction ">
-        <p><b>Weekly emotion statistics:</b></p>
-        <canvas id="myChart2" style="width: 100%; max-width: 700px"></canvas>
-
+        <h4 class="heading2">If you are feeling <a id="key_emotion"></a> today, try this!</h4>
         
-
-        {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
+        <div class="row">
+          <div id="sad">
+              <div class="col">
+                <h6 class="heading2">Go for a walk</h6>
+                 <img src= "{% static 'images/sad1.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+                 <h6 class="heading2">Talk to your family/friends</h6>
+                 <img src= "{% static 'images/sad2.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+                 <h6 class="heading2">Get creative!</h6>
+                 <img src= "{% static 'images/sad3.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+          <div id="happy">
+              <div class="col">
+                  <h6 class="heading2">Go on a road trip</h6>
+                 <img src= "{% static 'images/4.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Volunteer for charity events</h6>
+                 <img src= "{% static 'images/5.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Explore new hobbies</h6>
+                 <img src= "{% static 'images/6.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+          <div id="fear">
+             <div class="col">
+                  <h6 class="heading2">Talk to your close ones</h6>
+                 <img src= "{% static 'images/sad2.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Meditate</h6>
+                 <img src= "{% static 'images/7.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Read your favourite book</h6>
+                 <img src= "{% static 'images/8.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+          <div id="surprise">
+             <div class="col">
+                  <h6 class="heading2">Explore a new hiking trail</h6>
+                 <img src= "{% static 'images/14.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Watch a thought-provoking movie</h6>
+                 <img src= "{% static 'images/15.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Try a new cuisine</h6>
+                 <img src= "{% static 'images/16.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+          <div id="angry">
+              <div class="col">
+                  <h6 class="heading2">Exercise at home/gym</h6>
+                 <img src= "{% static 'images/9.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Try deep breathing exercises</h6>
+                 <img src= "{% static 'images/7.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Play some calming music</h6>
+                 <img src= "{% static 'images/10.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+          <div id="love">
+              <div class="col">
+                  <h6 class="heading2">Cook a meal</h6>
+                 <img src= "{% static 'images/11.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Try self care activites</h6>
+                 <img src= "{% static 'images/12.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+              <div class="col">
+              <h6 class="heading2">Go for shopping</h6>
+                 <img src= "{% static 'images/13.png' %}" class="moodImg"  alt="working girl" />
+              </div>
+          </div>
+      
+         
+        </div>
       </div>
       
       <div class="card dashboardCard2 prediction">
       <h4 class="card-title">Last entry</h4>
         <p>{{ journalText }}</p>
-      
-
-        {% comment %} <h3 class="heading2">Key emotion: <a id="prediction"></a></h3> {% endcomment %}
-      </div>
+            </div>
     </div>
 
     <!-- JavaScript -->
@@ -87,8 +173,30 @@
       yy = yy.split(", ");
       for (var i = 0; i < 6; i++) yy[i] = parseInt(yy[i]);
       var xValues = ["Sadness", "Joy", "Surprise", "Love", "Anger", "Fear"];
+      var emotion_val = ["sad", "happy", "surprised", "love", "angry", "scared"];
       var yValues = yy;
-      console.log(yy);
+      var key_emotion = (yValues.indexOf(Math.max(...yValues)));
+      if(key_emotion === 0){
+          document.getElementById("sad").style.display = "flex" ;
+      }
+      else if(key_emotion === 1){
+          document.getElementById("happy").style.display = "flex" ;
+      }
+      else if(key_emotion === 2){
+          document.getElementById("surprise").style.display = "flex" ;
+      }
+      else if(key_emotion === 3){
+          document.getElementById("love").style.display = "flex" ;
+      }
+      else if(key_emotion === 4){
+          document.getElementById("angry").style.display = "flex" ;
+      }
+      else if(key_emotion === 5){
+          document.getElementById("fear").style.display = "flex" ;
+      }
+
+      
+      document.getElementById("key_emotion").innerHTML = emotion_val[key_emotion];
       var barColors = ["red", "green", "blue", "orange", "brown", "pink"];
 
       new Chart("myChart", {
